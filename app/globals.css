@@ -1,26 +1,243 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --charcoal: #0f0e0d;
+  --charcoal-light: #1a1816;
+  --card: rgba(34, 30, 27, 0.72);
+  --card-solid: #221e1b;
+  --gold: #c9a962;
+  --gold-light: #dfc88a;
+  --gold-dim: #8a7344;
+  --brass: #b8956a;
+  --cream: #f5f0e8;
+  --wood-dark: #2a1f18;
+  --wood-mid: #3d2e24;
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  --color-charcoal: var(--charcoal);
+  --color-charcoal-light: var(--charcoal-light);
+  --color-card: var(--card-solid);
+  --color-gold: var(--gold);
+  --color-gold-light: var(--gold-light);
+  --color-gold-dim: var(--gold-dim);
+  --color-brass: var(--brass);
+  --color-cream: var(--cream);
+  --color-wood-dark: var(--wood-dark);
+  --color-wood-mid: var(--wood-mid);
+  --font-sans: var(--font-inter);
+  --font-serif: var(--font-playfair);
+  --shadow-gold-glow: 0 0 24px rgba(201, 169, 98, 0.22);
+  --shadow-card: 0 8px 32px rgba(0, 0, 0, 0.45);
+  --shadow-card-hover: 0 12px 40px rgba(0, 0, 0, 0.55);
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--charcoal);
+  color: var(--cream);
+}
+
+.humidor-bg {
+  background-color: var(--charcoal);
+  background-image:
+    radial-gradient(ellipse 100% 60% at 50% -10%, rgba(180, 120, 50, 0.1), transparent 55%),
+    radial-gradient(ellipse 80% 50% at 90% 20%, rgba(61, 46, 36, 0.4), transparent 50%),
+    radial-gradient(ellipse 70% 40% at 10% 70%, rgba(42, 31, 24, 0.45), transparent 50%),
+    radial-gradient(ellipse 60% 30% at 50% 100%, rgba(201, 169, 98, 0.04), transparent 60%),
+    repeating-linear-gradient(
+      92deg,
+      transparent,
+      transparent 2px,
+      rgba(61, 46, 36, 0.04) 2px,
+      rgba(61, 46, 36, 0.04) 5px
+    ),
+    linear-gradient(180deg, #141008 0%, #0f0e0d 45%, #12100c 100%);
+}
+
+.glass-card {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.06) 0%, rgba(255, 255, 255, 0.02) 100%);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(201, 169, 98, 0.12);
+  box-shadow: var(--shadow-card);
+}
+
+.glass-card-strong {
+  background: linear-gradient(145deg, rgba(42, 36, 32, 0.85) 0%, rgba(28, 24, 21, 0.92) 100%);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(201, 169, 98, 0.15);
+  box-shadow: var(--shadow-card);
+}
+
+.collectible-card {
+  background: linear-gradient(160deg, rgba(48, 40, 34, 0.9) 0%, rgba(22, 18, 15, 0.95) 100%);
+  border: 1px solid rgba(201, 169, 98, 0.18);
+  box-shadow:
+    0 12px 40px rgba(0, 0, 0, 0.55),
+    inset 0 1px 0 rgba(255, 255, 255, 0.06),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.2);
+}
+
+.tap-scale {
+  @apply transition-transform duration-150 ease-out active:scale-[0.96];
+}
+
+.skeleton {
+  background: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0.04) 0%,
+    rgba(201, 169, 98, 0.08) 50%,
+    rgba(255, 255, 255, 0.04) 100%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 1.5s ease-in-out infinite;
+}
+
+.media-smoke-glow {
+  background:
+    radial-gradient(ellipse 80% 50% at 20% 100%, rgba(201, 169, 98, 0.08), transparent 55%),
+    radial-gradient(ellipse 60% 40% at 80% 0%, rgba(255, 255, 255, 0.04), transparent 50%);
+  pointer-events: none;
+}
+
+.media-card-glow {
+  box-shadow:
+    0 12px 40px rgba(0, 0, 0, 0.55),
+    0 0 0 1px rgba(201, 169, 98, 0.12),
+    inset 0 1px 0 rgba(255, 255, 255, 0.06);
+}
+
+.media-card-layer {
+  isolation: isolate;
+}
+
+input,
+textarea,
+select {
+  @apply outline-none;
+}
+
+.card-hover {
+  @apply transition-all duration-300 ease-out;
+}
+
+.card-hover:hover {
+  border-color: rgba(201, 169, 98, 0.25);
+  box-shadow: var(--shadow-card-hover);
+  transform: translateY(-2px);
+}
+
+.card-hover:active {
+  transform: scale(0.98) translateY(0);
+}
+
+.safe-bottom {
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+}
+
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
+.snap-x-mandatory {
+  scroll-snap-type: x mandatory;
+}
+
+.snap-start {
+  scroll-snap-align: start;
+}
+
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+.animate-fade-up {
+  animation: fade-up 0.5s ease-out forwards;
+}
+
+.animate-fade-up-delay-1 {
+  animation: fade-up 0.5s ease-out 0.08s forwards;
+  opacity: 0;
+}
+
+.animate-fade-up-delay-2 {
+  animation: fade-up 0.5s ease-out 0.16s forwards;
+  opacity: 0;
+}
+
+.animate-fade-up-delay-3 {
+  animation: fade-up 0.5s ease-out 0.24s forwards;
+  opacity: 0;
+}
+
+@keyframes smoke-drift {
+  0% {
+    opacity: 0;
+    transform: translateY(0) scale(1);
+  }
+  30% {
+    opacity: 0.35;
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-28px) scale(1.4);
+  }
+}
+
+@keyframes glow-pulse {
+  0%,
+  100% {
+    opacity: 0.4;
+  }
+  50% {
+    opacity: 0.7;
+  }
+}
+
+.animate-smoke-1 {
+  animation: smoke-drift 4s ease-out infinite;
+}
+
+.animate-smoke-2 {
+  animation: smoke-drift 5s ease-out 1.5s infinite;
+}
+
+.animate-glow-pulse {
+  animation: glow-pulse 3s ease-in-out infinite;
+}
+
+.stagger-1 { animation: fade-up 0.45s ease-out 0.05s forwards; opacity: 0; }
+.stagger-2 { animation: fade-up 0.45s ease-out 0.1s forwards; opacity: 0; }
+.stagger-3 { animation: fade-up 0.45s ease-out 0.15s forwards; opacity: 0; }
+.stagger-4 { animation: fade-up 0.45s ease-out 0.2s forwards; opacity: 0; }
+.stagger-5 { animation: fade-up 0.45s ease-out 0.25s forwards; opacity: 0; }
+.stagger-6 { animation: fade-up 0.45s ease-out 0.3s forwards; opacity: 0; }
+
+
+input:focus,
+textarea:focus,
+select:focus {
+  @apply ring-2 ring-gold/30 border-gold/30;
 }

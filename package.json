@@ -3,6 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
+    "sync-media": "node scripts/sync-media.js",
+    "predev": "node scripts/sync-media.js",
+    "prebuild": "node scripts/sync-media.js",
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
