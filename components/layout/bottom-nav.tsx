@@ -75,7 +75,7 @@ export function BottomNav() {
   const pathname = usePathname();
 
   return (
-    <nav className="fixed inset-x-0 bottom-0 z-50 safe-bottom">
+    <nav className="fixed inset-x-0 bottom-0 z-50 safe-bottom lg:hidden">
       <div className="mx-auto max-w-lg px-4 pb-3">
         <div className="glass-card-strong flex items-end justify-around rounded-2xl px-1 py-2 shadow-card">
           {tabs.map((tab) => {
