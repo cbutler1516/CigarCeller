@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { Cigar, strengthColor } from "@/lib/mock-data";
 import { useStore } from "@/lib/store-context";
 import { CigarImagePlaceholder } from "./cigar-image-placeholder";
@@ -73,7 +74,13 @@ export function CigarCard({ cigar, variant = "grid", stagger, interactive = true
         </div>
 
         {interactive && variant === "grid" && (
-          <div className="mt-4 flex gap-2 border-t border-white/5 pt-4">
+          <div className="mt-4 flex flex-wrap gap-2 border-t border-white/5 pt-4">
+            <Link
+              href={`/inventory/${cigar.id}/edit`}
+              className="tap-scale rounded-xl border border-white/10 px-3 py-2.5 text-xs font-medium text-cream/55"
+            >
+              Edit
+            </Link>
             <button
               type="button"
               onClick={() => smokeOne(cigar.id)}
